@@ -34,7 +34,7 @@
 
 
 <body>
-    <div class="container">
+    <div class="container" id="field">
         <section>
             <div class="square" id="1">1</div>
             <div class="square" id="2">2</div>
@@ -74,18 +74,65 @@
 </body>
 
 <script>
-    // add for loop that loop through out all elements and one and element is select it wills start another loop go give the use option to select for another 3 ships but they need to be one next to each other. 
+    const doubleBoat = [];
+    let sum = 0;
+    let cout = 0;
+    // select all of the divtags 
+    // add eventListener
+    // from book Notes returning objects 
+    document.querySelectorAll('.square').forEach(function(numberElement) {
+        numberElement.addEventListener('click', function() {
+            // put all of the nunbers in array
+            selectBoat(numberElement);
+        })
+    })
 
 
-    var element = document.getElementById('1');
+    // select the boat 
+    function selectBoat(numberElement) {
+        // coversion of the number 
+        const number = parseFloat(numberElement.textContent);
+        cout++;
+        // with index we are pressuring to get in to the loop if statment
+        const index = doubleBoat.indexOf(number);
+
+        if (cout <= 2) {
+            doubleBoat.push(number)
+            console.log(cout + " From the counter")
+
+        } else {
+
+            attack()
+        }
+
+    }
+
+    function attack() {
+        document.querySelectorAll('.square').forEach(function(numberElement) {
+            numberElement.addEventListener('click', function() {
+                // put all of the nunbers in array
+                hitBoat(numberElement);
+            })
+        })
+    }
+
+    function hitBoat(numberElement) {
+        const number = parseFloat(numberElement.textContent);
+        // add 3 other boats to check for
+        if (doubleBoat[0] == number || doubleBoat[1] == number) {
+            // add a style to chnage the square to red
+            console.log("you have a hit")
+            cout++
+            if (cout == 2) {
+
+                console.log("sink boat")
+            }
+        } else {
+            console.log("try again")
+        }
 
 
-    // Add a change event listener
-    element.addEventListener('click', function() {
-        // Display an alert when the element is selected
-        alert('Element selected!');
-        console.log(element.id)
-    });
+    }
 </script>
 
 </html>
