@@ -24,6 +24,40 @@
         background-color: greenyellow;
         border: solid;
         width: 10px;
+        border-color: black;
+        height: 10px;
+        color: greenyellow;
+    }
+    
+    .selectedSingle {
+        padding: 50px;
+        background-color: rgb(189, 236, 255);
+        border: solid;
+        width: 10px;
+        height: 10px;
+    }
+    
+    .selectedDouble {
+        padding: 50px;
+        background-color: rgb(69, 197, 247);
+        border: solid;
+        width: 10px;
+        height: 10px;
+    }
+    
+    .selectedTripple {
+        padding: 50px;
+        background-color: rgb(4, 151, 209);
+        border: solid;
+        width: 10px;
+        height: 10px;
+    }
+    
+    .red {
+        padding: 50px;
+        background-color: rgb(255, 57, 47);
+        border: solid;
+        width: 10px;
         height: 10px;
     }
     
@@ -75,8 +109,11 @@
 
 <script>
     const doubleBoat = [];
+    const singleBoat = [];
+    const trippleBoat = [];
     let sum = 0;
     let cout = 0;
+
     // select all of the divtags 
     // add eventListener
     // from book Notes returning objects 
@@ -87,21 +124,28 @@
         })
     })
 
-
     // select the boat 
     function selectBoat(numberElement) {
         // coversion of the number 
         const number = parseFloat(numberElement.textContent);
         cout++;
         // with index we are pressuring to get in to the loop if statment
-        const index = doubleBoat.indexOf(number);
-
-        if (cout <= 2) {
+        const index = singleBoat.indexOf(number);
+        // console.log(cout)
+        if (cout <= 1) {
+            numberElement.classList.add('selectedSingle')
+            singleBoat.push(number)
+                //console.log(cout)
+            console.log(singleBoat)
+        } else if (cout > 1 && cout < 4) {
+            numberElement.classList.add('selectedDouble')
             doubleBoat.push(number)
-            console.log(cout + " From the counter")
-
+            console.log(doubleBoat)
+        } else if (cout > 3 && cout < 7) {
+            numberElement.classList.add('selectedTripple')
+            trippleBoat.push(number)
+            console.log(trippleBoat)
         } else {
-
             attack()
         }
 
@@ -112,6 +156,7 @@
             numberElement.addEventListener('click', function() {
                 // put all of the nunbers in array
                 hitBoat(numberElement);
+
             })
         })
     }
@@ -119,19 +164,25 @@
     function hitBoat(numberElement) {
         const number = parseFloat(numberElement.textContent);
         // add 3 other boats to check for
-        if (doubleBoat[0] == number || doubleBoat[1] == number) {
+        if (singleBoat[0] == number) {
             // add a style to chnage the square to red
             console.log("you have a hit")
             cout++
-            if (cout == 2) {
-
+            // number lements holds data delements
+            numberElement.classList.add('red')
+            console.log(cout)
+            if (cout == 1) {
                 console.log("sink boat")
             }
+        } else if (doubleBoat[0] == number || doubleBoat[1] == number) {
+            numberElement.classList.add('red')
+
+        } else if (trippleBoat[0] == number || trippleBoat[1] == number || trippleBoat[2] == number) {
+            numberElement.classList.add('red')
+
         } else {
             console.log("try again")
         }
-
-
     }
 </script>
 
